@@ -1,0 +1,218 @@
+/* It is just a placeholder for the sidebar, The idea behind this is to make the sidebar on top of placeholder,
+ so whenever we scroll down it will always stays in it's place */
+.sidebar-placeholder {
+  flex: 0 0 18%;
+}
+.sidebar {
+  /* To make sidebar stay on page even if we scroll down */
+  position: fixed;
+  /* To make the elements with in the sidebar as a flex*/
+  display: flex;
+  /* Will make elements direction to COLUMN ,
+  Hint => It's row by default
+  */
+  flex-direction: column;
+  /* To spreat elements and make space on the elements side */
+  justify-content: space-evenly;
+  /* To occupie all the avilable height */
+  height: 100%;
+  /* Set width to 17% of the element's original width */
+  width: 18%;
+  background-color: #212529;
+  /* To make sure the sidebar always on top of all elements */
+  z-index: 100;
+}
+.sidebar__overlay {
+  /* To make the element occupies all page's width */
+  width: 100vw;
+  height: 100%;
+  /*  To make the overlay dark, brightness(number%)*/
+  filter: brightness(50%);
+  /*  To make all the elements that are behind the overlay  blured*/
+  backdrop-filter: blur(0.25rem);
+  /* Using a negative  value to take the element to the left side of the vw (Viewport Width) */
+  transform: translateX(-100vw);
+  /* Adding a simple transition */
+  transition: all 450ms 100ms;
+  position: fixed;
+  /* The overlay will be on the top of the page,
+   setting top to 0 will make the starts from top  all the way to the bottom */
+  top: 0;
+  /* setting   z-index: -1;  to put the overlay behind the sidebar
+  */
+  z-index: -1;
+}
+.sidebar__overlay--active {
+  /*  It will set back the element to it's original position */
+  transform: translateX(0);
+}
+.sidebar__logo {
+  /* to align the logo at the center  at (X axis),
+    align-self => to align the current element only
+   */
+  align-self: center;
+}
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  /* the space between each sidebar__list's child*/
+  gap: 1.2rem;
+  /* To hide list bullets */
+  list-style: none;
+
+  z-index: 100;
+}
+
+.sidebar__link,
+.sidebar__link :link,
+.sidebar__link :visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  height: 100%;
+  /* This means that the element will be moved out 
+       of the normal flow of the document */
+  position: relative;
+}
+.sidebar__link::before {
+  content: "";
+  display: block;
+  /* This means that the element will be
+    moved out of the normal flow of the document,
+    and it will be positioned relative to its nearest
+    positioned ancestor. */
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  transition: all 450ms cubic-bezier(1, 1, 1, 1);
+  background-color: #f86969;
+}
+.sidebar__link:hover::before {
+  width: 100%;
+}
+
+.sidebar__link--active {
+  background-color: #f86969;
+}
+
+.sidebar__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: 2rem;
+}
+.sidebar__btn {
+  border: none;
+  background-color: transparent;
+  position: relative;
+  z-index: 1000;
+  padding: 3.2rem 1.2rem;
+
+  cursor: pointer;
+  display: none;
+  text-align: center;
+
+  z-index: 1000;
+}
+.sidebar__btn__icon {
+  position: relative;
+  transition: all 450ms;
+}
+.sidebar__btn__icon--active {
+  transition: all 450ms;
+}
+.sidebar__btn__icon,
+.sidebar__btn__icon::before,
+.sidebar__btn__icon::after {
+  display: inline-block;
+  width: 4rem;
+  height: 0.3rem;
+
+  background-color: #f8f9fa;
+}
+.sidebar__btn__icon::before,
+.sidebar__btn__icon::after {
+  content: "";
+  position: absolute !important;
+  left: 0;
+}
+.sidebar__btn__icon::before {
+  top: -0.8rem;
+}
+.sidebar__btn__icon::after {
+  top: 0.8rem;
+}
+
+.sidebar__btn__icon--active.sidebar__btn__icon {
+  transition: all 450ms ease;
+  background-color: transparent;
+}
+
+.sidebar__btn__icon--active.sidebar__btn__icon::before {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.sidebar__btn__icon--active.sidebar__btn__icon::after {
+  transform: rotate(45deg);
+  top: 0;
+}
+.sidebar__btn__icon--active.sidebar__btn__icon,
+.sidebar__btn__icon--active.sidebar__btn__icon::before,
+.sidebar__btn__icon--active.sidebar__btn__icon::after {
+  transition: all 450ms;
+}
+
+/* ------------------ */
+/*  MEDIA QUERIES */
+/* ------------------ */
+
+/* 62.5em=1000px */
+@media only screen and (max-width: 62.5em) {
+  .sidebar-placeholder {
+    flex: 0 0 25%;
+  }
+  .sidebar {
+    width: 25%;
+  }
+}
+
+/* 50em= 800px */
+@media only screen and (max-width: 50em) {
+  .sidebar__btn {
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: 4rem;
+    padding: 3.2rem 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebar__list {
+    height: 100%;
+
+    width: 40%;
+    top: 0;
+
+    transform: translateX(-100%);
+    transition: all 450ms ease;
+    position: fixed;
+    z-index: 100;
+    justify-content: center;
+    background-color: #212529;
+  }
+  .sidebar__list--active {
+    transform: translateX(0);
+  }
+  .sidebar__link {
+    text-align: center;
+  }
+}
